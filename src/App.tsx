@@ -12,22 +12,36 @@ import {
   useNavigationPersistence,
 } from '@navigation/NavigationUtilities';
 import {canExit, RootNavigator} from '@navigation/RootNavigator';
+import {persistor, rootStore} from '@redux/rootStore';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
 
 export const NAVIGATION_PERSISTENCE_KEY = 'NAVIGATION_STATE';
 
 const App = () => {
   useBackButtonHandler(navigationRef, canExit);
 
-  const {initialNavigationState, onNavigationStateChange} =
-    useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
+  const {
+    initialNavigationState,
+    onNavigationStateChange,
+    isRestored: isNavigationStateRestored,
+  } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY);
+
+  if (!rootStore || !isNavigationStateRestored) {
+    return null;
+  }
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <RootNavigator
-        initialState={initialNavigationState}
-        onStateChange={onNavigationStateChange}
-      />
-    </SafeAreaProvider>
+    <Provider store={rootStore}>
+      <PersistGate persistor={persistor} loading={null}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+          <RootNavigator
+            initialState={initialNavigationState}
+            onStateChange={onNavigationStateChange}
+          />
+        </SafeAreaProvider>
+      </PersistGate>
+    </Provider>
   );
 };
 
