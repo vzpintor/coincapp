@@ -26,6 +26,7 @@ module.exports = {
           '@utils': ['./src/app/shared/utils'],
           '@environment': ['./src/environment'],
           '@assets': ['./src/assets'],
+          '@services': ['./src/app/services'],
         },
       },
     ],

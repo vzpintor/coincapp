@@ -1,9 +1,9 @@
 import {IAssetState} from '@shared/state/IAssetState';
 import {GenericActionRequest} from '@redux/actions/genericAction';
-import {assetTypes} from '@redux/actions/assetTypes';
+import {assetTypes} from '@redux/actions/asset/assetTypes';
 
 const initialState: IAssetState = {
-  assets: {
+  assetsList: {
     isLoading: false,
     data: [],
     error: null,
@@ -18,7 +18,7 @@ const assetsReducer = (
     case 'GET_ASSETS':
       return {
         ...state,
-        assets: action.payload,
+        assetsList: action.payload,
       };
     default:
       return state;

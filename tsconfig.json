@@ -59,7 +59,8 @@
       "@shared/*": ["./src/app/shared/*", "./src/app/shared/interfaces/*"],
       "@utils/*": ["./src/app/shared/utils/*"],
       "@environment/*": ["./src/environment/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@services/*": ["./src/app/services/*"]
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
