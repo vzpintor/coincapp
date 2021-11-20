@@ -47,19 +47,19 @@
     /* Module Resolution Options */
     "moduleResolution": "node",
     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    "baseUrl": "./src",
+    "baseUrl": "./",
     /* Base directory to resolve non-absolute module names. */
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     "paths": {
-      "@components/*": ["./app/components/*"],
-      "@hooks/*": ["./app/hooks/*"],
-      "@navigation/*": ["./app/navigation/*"],
-      "@redux/*": ["./app/redux/*"],
-      "@screens/*": ["./app/screens/*"],
-      "@shared/*": ["./app/shared/*", "./app/shared/interfaces/*"],
-      "@utils/*": ["./app/shared/utils/*"],
-      "@environment/*": ["./environment/*"],
-      "@assets/*": ["./assets/*"]
+      "@components/*": ["./src/app/components/*"],
+      "@hooks/*": ["./src/app/hooks/*"],
+      "@navigation/*": ["./src/app/navigation/*"],
+      "@redux/*": ["./src/app/redux/*"],
+      "@screens/*": ["./src/app/screens/*"],
+      "@shared/*": ["./src/app/shared/*", "./src/app/shared/interfaces/*"],
+      "@utils/*": ["./src/app/shared/utils/*"],
+      "@environment/*": ["./src/environment/*"],
+      "@assets/*": ["./src/assets/*"]
     },
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
