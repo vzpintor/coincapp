@@ -1,47 +1,33 @@
 import React from 'react';
 import {Image, Text, View} from 'react-native';
-import ArrowUpIcon from '@components/icons/ArrowUpIcon';
+import {rowStyles} from '@components/Row/styles';
+import {RowProps} from '@components/Row/props';
+import {format} from '@utils/number';
+import PercentageChange from '@components/PercentageChange';
 
-const Row = () => {
+const Row = ({asset}: RowProps) => {
+  const {symbol, name, priceUsd, changePercent24Hr, logo} = asset;
+
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingVertical: 5,
-      }}>
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
+    <View style={rowStyles.container}>
+      <View style={rowStyles.brand}>
         <Image
           source={{
-            uri: 'https://assets.coincap.io/assets/icons/btc@2x.png',
+            uri: logo,
             width: 30,
             height: 30,
           }}
         />
-        <View
-          style={{
-            marginLeft: 20,
-          }}>
-          <Text>BTC</Text>
-          <Text>Bitcoin</Text>
+        <View style={rowStyles.assetName}>
+          <Text>{symbol}</Text>
+          <Text>{name}</Text>
         </View>
       </View>
 
-      <View style={{alignItems: 'flex-end'}}>
-        <Text>$59,523</Text>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <ArrowUpIcon width={30} height={30} color={'red'} />
-          <Text>2.63%</Text>
+      <View style={rowStyles.numeralContainer}>
+        <Text>${format(priceUsd)}</Text>
+        <View style={rowStyles.change}>
+          <PercentageChange changePercent={changePercent24Hr} />
         </View>
       </View>
     </View>

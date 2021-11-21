@@ -1,3 +1,7 @@
+export interface IAssetResponse {
+  data: Array<IAsset>;
+}
+
 export interface IAsset {
   id: string;
   rank: string;
@@ -11,4 +15,5 @@ export interface IAsset {
   changePercent24Hr: string;
   vwap24Hr: string;
   explorer: string;
+  logo: string;
 }

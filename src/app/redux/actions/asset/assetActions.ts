@@ -10,7 +10,7 @@ export const requestAssets = () => async (dispatch: Dispatch) => {
     const response = await getAllAssets();
 
     return dispatch(
-      loadAssetsActionCreator.success<Array<IAsset>>(response.data),
+      loadAssetsActionCreator.success<Array<IAsset>>(response.data.data),
     );
   } catch (e) {
     return dispatch(
