@@ -10,15 +10,32 @@ import {IAsset} from '@shared/assetInterface';
 import Loading from '@components/Loading';
 import Search from '@components/Search';
 import {homeScreenStyles} from '@screens/Home/styles';
+import useWebSocket from '@hooks/useWebSocket';
+
+const {socket} = require('@environment/env');
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const {data, isLoading} = useSelector(assetState);
 
+  const {initSocket, wsData} = useWebSocket(socket);
+
+  useEffect(() => {
+    console.log('===> useEffect para initSocket');
+    console.log('===> wsData', wsData);
+    // initSocket();
+  }, []);
+
   useEffect(() => {
     dispatch(requestAssets());
   }, []);
+
+  // useEffect(() => {
+  //   if (data && data?.length > 0) {
+  //     initSocket();
+  //   }
+  // }, [data]);
 
   const renderRow = useCallback(({item}: ListRenderItemInfo<IAsset>) => {
     return <Row asset={item} />;
