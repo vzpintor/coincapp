@@ -7,6 +7,7 @@ import Row from '@components/Row';
 import Divider from '@components/Divider';
 import {assetState} from '@redux/selectos/assetSelecto';
 import {IAsset} from '@shared/assetInterface';
+import Loading from '@components/Loading';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ const HomeScreen = () => {
   const renderRow = useCallback(({item}: ListRenderItemInfo<IAsset>) => {
     return <Row asset={item} />;
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Container unsafe>
