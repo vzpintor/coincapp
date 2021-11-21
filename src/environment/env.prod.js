@@ -2,7 +2,7 @@ const {api} = require('@services/config/api');
 
 module.exports = {
   production: true,
-  socket: 'wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin',
+  socket: 'wss://ws.coincap.io/prices?assets=',
   api: {
     baseUrl: 'https://api.coincap.io/v2',
     baseLogoUrl: 'https://assets.coincap.io/assets/icons/',

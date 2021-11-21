@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, Text, View} from 'react-native';
 import {rowStyles} from '@components/Row/styles';
 import {RowProps} from '@components/Row/props';
@@ -6,10 +6,10 @@ import {format} from '@utils/number';
 import PercentageChange from '@components/PercentageChange';
 
 const Row = ({asset}: RowProps) => {
-  const {symbol, name, priceUsd, changePercent24Hr, logo} = asset;
+  const {symbol, name, priceUsd, changePercent24Hr, logo, background} = asset;
 
   return (
-    <View style={rowStyles.container}>
+    <View style={[rowStyles.container, {backgroundColor: background}]}>
       <View style={rowStyles.brand}>
         <Image
           source={{

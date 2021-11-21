@@ -2,6 +2,10 @@ export interface IAssetResponse {
   data: Array<IAsset>;
 }
 
+export interface IPrice {
+  [key: string]: string;
+}
+
 export interface IAsset {
   id: string;
   rank: string;
@@ -16,4 +20,5 @@ export interface IAsset {
   vwap24Hr: string;
   explorer: string;
   logo: string;
+  background: string;
 }

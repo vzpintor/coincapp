@@ -1,16 +1,42 @@
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef} from 'react';
 import {AppState, AppStateStatus} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateAssets} from '@redux/actions/asset/assetActions';
+import {assetState} from '@redux/selectos/assetSelecto';
+import {IAsset} from '@shared/assetInterface';
+import {palette} from '@shared/theme/palette';
 
 const useWebSocket = (socketUrl: string, retryInterval: number = 1500) => {
-  const [wsData, setWsData] = useState(null);
+  const dispatch = useDispatch();
+  const {data: assetsData} = useSelector(assetState);
 
   const wsRef = useRef<WebSocket>(new WebSocket(socketUrl));
 
   const initSocket = useCallback(() => {
     wsRef.current.onopen = () => {
       wsRef.current.onmessage = (event: WebSocketMessageEvent) => {
-        // console.log(JSON.parse(event.data));
-        setWsData(JSON.parse(event.data));
+        const prices = JSON.parse(event.data);
+        assetsData?.forEach((asset: IAsset) => {
+          const price = prices[asset.id];
+
+          if (price) {
+            const background =
+              price > asset.priceUsd ? palette.hoverGreen : palette.hoverRed;
+
+            const assetClone = {
+              ...asset,
+              priceUsd: price,
+              background,
+            };
+
+            //TODO: Agregar flag para validar si es alta o baja
+            assetsData?.splice(assetsData?.indexOf(asset), 1, assetClone);
+          }
+        });
+
+        if (assetsData) {
+          dispatch(updateAssets(assetsData));
+        }
       };
     };
 
@@ -41,7 +67,7 @@ const useWebSocket = (socketUrl: string, retryInterval: number = 1500) => {
     });
   }, []);
 
-  return {initSocket, wsData};
+  return {initSocket};
 };
 
 export default useWebSocket;

@@ -3,6 +3,7 @@ import {GenericActionRequest} from '@redux/actions/genericAction';
 import {assetTypes} from '@redux/actions/asset/assetTypes';
 
 const initialState: IAssetState = {
+  prices: null,
   readyState: false,
   assetsList: {
     isLoading: false,
@@ -25,6 +26,14 @@ const assetsReducer = (
       return {
         ...state,
         readyState: action.payload,
+      };
+    case 'UPDATE_ASSETS':
+      return {
+        ...state,
+        assetsList: {
+          ...state.assetsList,
+          data: action.payload,
+        },
       };
     default:
       return state;
