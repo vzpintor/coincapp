@@ -3,6 +3,7 @@ import {GenericActionRequest} from '@redux/actions/genericAction';
 import {assetTypes} from '@redux/actions/asset/assetTypes';
 
 const initialState: IAssetState = {
+  readyState: false,
   assetsList: {
     isLoading: false,
     data: [],
@@ -19,6 +20,11 @@ const assetsReducer = (
       return {
         ...state,
         assetsList: action.payload,
+      };
+    case 'READY_STATE':
+      return {
+        ...state,
+        readyState: action.payload,
       };
     default:
       return state;

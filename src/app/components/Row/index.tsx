@@ -34,4 +34,4 @@ const Row = ({asset}: RowProps) => {
   );
 };
 
-export default Row;
+export default React.memo(Row);

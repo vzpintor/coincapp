@@ -9,7 +9,7 @@ const useWebSocket = (socketUrl: string, retryInterval: number = 1500) => {
   const initSocket = useCallback(() => {
     wsRef.current.onopen = () => {
       wsRef.current.onmessage = (event: WebSocketMessageEvent) => {
-        console.log(JSON.parse(event.data));
+        // console.log(JSON.parse(event.data));
         setWsData(JSON.parse(event.data));
       };
     };

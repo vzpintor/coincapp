@@ -2,6 +2,15 @@ import {Dispatch} from 'redux';
 import {loadAssetsActionCreator} from '@redux/actions/asset/assetCreator';
 import {IAsset} from '@shared/assetInterface';
 import {getAllAssets} from '@services/assetService';
+import {GenericAction} from '@redux/actions/genericAction';
+import {IAssetTypes} from '@redux/actions/asset/assetTypes';
+
+export const readyState = (
+  ready: boolean,
+): GenericAction<IAssetTypes, boolean> => ({
+  type: 'READY_STATE',
+  payload: ready,
+});
 
 export const requestAssets = () => async (dispatch: Dispatch) => {
   dispatch(loadAssetsActionCreator.request(true));
@@ -9,9 +18,11 @@ export const requestAssets = () => async (dispatch: Dispatch) => {
   try {
     const response = await getAllAssets();
 
-    return dispatch(
+    dispatch(
       loadAssetsActionCreator.success<Array<IAsset>>(response.data.data),
     );
+
+    return dispatch(readyState(true));
   } catch (e) {
     return dispatch(
       loadAssetsActionCreator.error<string>(

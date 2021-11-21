@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, ListRenderItemInfo, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {requestAssets} from '@redux/actions/asset/assetActions';
 import {Container} from '@components/Container';
 import Row from '@components/Row';
 import Divider from '@components/Divider';
-import {assetState} from '@redux/selectos/assetSelecto';
+import {assetState, statusState} from '@redux/selectos/assetSelecto';
 import {IAsset} from '@shared/assetInterface';
 import Loading from '@components/Loading';
 import Search from '@components/Search';
@@ -18,28 +18,27 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
 
   const {data, isLoading} = useSelector(assetState);
+  const readyState = useSelector(statusState);
 
   const {initSocket, wsData} = useWebSocket(socket);
 
   useEffect(() => {
-    console.log('===> useEffect para initSocket');
-    console.log('===> wsData', wsData);
-    // initSocket();
-  }, []);
+    if (readyState) {
+      initSocket();
+    }
+  }, [readyState]);
+
+  useEffect(() => {
+    console.log('===> ', wsData);
+  }, [wsData]);
 
   useEffect(() => {
     dispatch(requestAssets());
   }, []);
 
-  // useEffect(() => {
-  //   if (data && data?.length > 0) {
-  //     initSocket();
-  //   }
-  // }, [data]);
-
-  const renderRow = useCallback(({item}: ListRenderItemInfo<IAsset>) => {
+  const renderRow = ({item}: ListRenderItemInfo<IAsset>) => {
     return <Row asset={item} />;
-  }, []);
+  };
 
   if (isLoading) {
     return <Loading />;
