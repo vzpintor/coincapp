@@ -21,6 +21,7 @@ const Search = ({onChange}: SearchProps) => {
       </View>
       <View style={searchStyles.inputContainer}>
         <TextInput
+          autoCapitalize={'none'}
           style={searchStyles.input}
           onChangeText={setValue}
           value={value}
