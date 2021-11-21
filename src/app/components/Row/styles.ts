@@ -22,4 +22,7 @@ export const rowStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  label: {
+    color: 'black',
+  },
 });

@@ -19,13 +19,13 @@ const Row = ({asset}: RowProps) => {
           }}
         />
         <View style={rowStyles.assetName}>
-          <Text>{symbol}</Text>
-          <Text>{name}</Text>
+          <Text style={rowStyles.label}>{symbol}</Text>
+          <Text style={rowStyles.label}>{name}</Text>
         </View>
       </View>
 
       <View style={rowStyles.numeralContainer}>
-        <Text>${format(priceUsd)}</Text>
+        <Text style={rowStyles.label}>${format(priceUsd)}</Text>
         <View style={rowStyles.change}>
           <PercentageChange changePercent={changePercent24Hr} />
         </View>
