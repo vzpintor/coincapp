@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {TextInput, View} from 'react-native';
 import SearchIcon from '@components/icons/SearchIcon';
 import {searchStyles} from '@components/Search/styles';
+import useDebounce from '@hooks/useDebounce';
+import {SearchProps} from '@components/Search/props';
 
-const Search = () => {
-  const [text, onChangeText] = React.useState('');
+const Search = ({onChange}: SearchProps) => {
+  const [value, setValue] = React.useState('');
+
+  const debounce = useDebounce(value);
+
+  useEffect(() => {
+    onChange(debounce);
+  }, [debounce]);
 
   return (
     <View style={searchStyles.container}>
@@ -14,8 +22,8 @@ const Search = () => {
       <View style={searchStyles.inputContainer}>
         <TextInput
           style={searchStyles.input}
-          onChangeText={onChangeText}
-          value={text}
+          onChangeText={setValue}
+          value={value}
         />
       </View>
     </View>

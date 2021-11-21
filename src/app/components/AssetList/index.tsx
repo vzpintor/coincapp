@@ -17,7 +17,6 @@ const AssetList = ({assets}: AssetListProps) => {
   const readyState = useSelector(statusState);
 
   const {initSocket} = useWebSocket(`${socket}${params}`);
-  // const {initSocket} = useWebSocket(`${socket}bitcoin`);
 
   const renderRow = ({item}: ListRenderItemInfo<IAsset>) => {
     return <Row asset={item} />;

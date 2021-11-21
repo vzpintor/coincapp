@@ -29,7 +29,6 @@ const useWebSocket = (socketUrl: string, retryInterval: number = 1500) => {
               background,
             };
 
-            //TODO: Agregar flag para validar si es alta o baja
             assetsData?.splice(assetsData?.indexOf(asset), 1, assetClone);
           }
         });
