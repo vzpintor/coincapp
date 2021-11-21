@@ -53,13 +53,13 @@ const useWebSocket = (socketUrl: string, retryInterval: number = 1500) => {
   useEffect(() => {
     AppState.addEventListener('change', (state: AppStateStatus) => {
       if (state !== 'active') {
-        if (wsRef.current.readyState === 1) {
+        if (wsRef.current.readyState === WebSocket.OPEN) {
           wsRef.current.close();
         }
         return;
       }
 
-      if (wsRef.current.readyState === 3) {
+      if (wsRef.current.readyState === WebSocket.CLOSED) {
         wsRef.current = new WebSocket(socketUrl);
         initSocket();
       }

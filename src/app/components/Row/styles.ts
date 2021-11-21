@@ -6,6 +6,7 @@ export const rowStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   brand: {
     flex: 1,
