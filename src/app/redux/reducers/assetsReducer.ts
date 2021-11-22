@@ -10,6 +10,11 @@ const initialState: IAssetState = {
     data: [],
     error: null,
   },
+  history: {
+    isLoading: false,
+    data: [],
+    error: null,
+  },
 };
 
 const assetsReducer = (
@@ -34,6 +39,11 @@ const assetsReducer = (
           ...state.assetsList,
           data: action.payload,
         },
+      };
+    case 'ASSET_HISTORY':
+      return {
+        ...state,
+        history: action.payload,
       };
     default:
       return state;

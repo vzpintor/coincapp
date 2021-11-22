@@ -1,7 +1,10 @@
 import {Dispatch} from 'redux';
-import {loadAssetsActionCreator} from '@redux/actions/asset/assetCreator';
-import {IAsset} from '@shared/assetInterface';
-import {getAllAssets} from '@services/assetService';
+import {
+  historyAssetActionCreator,
+  loadAssetsActionCreator,
+} from '@redux/actions/asset/assetCreator';
+import {IAsset, IHistory, intervalType} from '@shared/assetInterface';
+import {getAllAssets, getHistory} from '@services/assetService';
 import {GenericAction} from '@redux/actions/genericAction';
 import {IAssetTypes} from '@redux/actions/asset/assetTypes';
 
@@ -37,3 +40,22 @@ export const requestAssets = () => async (dispatch: Dispatch) => {
     );
   }
 };
+
+export const requestAssetHistory =
+  (interval: intervalType, assetId: string) => async (dispatch: Dispatch) => {
+    dispatch(historyAssetActionCreator.request(true));
+
+    try {
+      const response = await getHistory(interval, assetId);
+
+      return dispatch(
+        historyAssetActionCreator.success<Array<IHistory>>(response.data.data),
+      );
+    } catch (e) {
+      return dispatch(
+        historyAssetActionCreator.error<string>(
+          `Ocurrio un error al intentar recuperar el historio para ${assetId}`,
+        ),
+      );
+    }
+  };

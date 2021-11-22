@@ -1,5 +1,16 @@
-export interface IAssetResponse {
-  data: Array<IAsset>;
+export type intervalType =
+  | 'm1'
+  | 'm5'
+  | 'm15'
+  | 'm30'
+  | 'h1'
+  | 'h2'
+  | 'h6'
+  | 'h12'
+  | 'd1';
+
+export interface IAssetBaseResponse<T> {
+  data: T;
 }
 
 export interface IPrice {
@@ -21,4 +32,10 @@ export interface IAsset {
   explorer: string;
   logo: string;
   background: string;
+}
+
+export interface IHistory {
+  priceUsd: string;
+  time: number;
+  date: Date;
 }

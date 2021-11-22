@@ -14,3 +14,5 @@ export const findAsset = (state: IRootState) => (assetId: string) =>
   ) as IAsset;
 
 export const statusState = (state: IRootState) => state.assets.readyState;
+
+export const assetHistoryState = (state: IRootState) => state.assets.history;
