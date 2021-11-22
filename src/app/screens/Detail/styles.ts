@@ -16,7 +16,6 @@ export const detailScreenStyles = StyleSheet.create({
     fontWeight: 'bold',
   },
   changeContainer: {
-    flex: 1,
     marginVertical: 10,
     flexDirection: 'row',
     alignItems: 'center',
