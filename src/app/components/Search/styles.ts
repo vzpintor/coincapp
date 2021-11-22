@@ -16,6 +16,7 @@ export const searchStyles = StyleSheet.create({
     flex: 1,
   },
   input: {
+    color: 'black',
     height: 40,
     paddingHorizontal: 10,
   },
