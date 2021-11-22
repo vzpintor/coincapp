@@ -6,67 +6,67 @@ import {assetState} from '@redux/selectos/assetSelecto';
 import {IAsset} from '@shared/assetInterface';
 import {palette} from '@shared/theme/palette';
 
-const useWebSocket = (socketUrl: string, retryInterval: number = 1500) => {
+const useWebSocket = (socketUrl: string) => {
   const dispatch = useDispatch();
   const {data: assetsData} = useSelector(assetState);
 
-  const wsRef = useRef<WebSocket>(new WebSocket(socketUrl));
+  const wsRef = useRef<WebSocket>();
 
   const initSocket = useCallback(() => {
+    console.log('===> socketUrl', socketUrl);
+    wsRef.current = new WebSocket(socketUrl);
+
     wsRef.current.onopen = () => {
-      wsRef.current.onmessage = (event: WebSocketMessageEvent) => {
-        const prices = JSON.parse(event.data);
-        assetsData?.forEach((asset: IAsset) => {
-          const price = prices[asset.id];
+      if (wsRef.current) {
+        wsRef.current.onmessage = (event: WebSocketMessageEvent) => {
+          const prices = JSON.parse(event.data);
+          assetsData?.forEach((asset: IAsset) => {
+            const price = prices[asset.id];
+            if (price) {
+              const background =
+                price > asset.priceUsd ? palette.hoverGreen : palette.hoverRed;
 
-          if (price) {
-            const background =
-              price > asset.priceUsd ? palette.hoverGreen : palette.hoverRed;
+              const assetClone = {
+                ...asset,
+                priceUsd: price,
+                background,
+              };
 
-            const assetClone = {
-              ...asset,
-              priceUsd: price,
-              background,
-            };
+              assetsData?.splice(assetsData?.indexOf(asset), 1, assetClone);
+            }
+          });
 
-            assetsData?.splice(assetsData?.indexOf(asset), 1, assetClone);
+          if (assetsData) {
+            dispatch(updateAssets(assetsData));
           }
-        });
-
-        if (assetsData) {
-          dispatch(updateAssets(assetsData));
-        }
-      };
+        };
+      }
     };
+  }, []);
 
-    wsRef.current.onclose = e => {
-      setTimeout(() => {
-        console.log(
-          'Socket is closed. Reconnect will be attempted in 1 second.',
-          e.reason,
-        );
-        initSocket();
-      }, retryInterval);
-    };
+  const stopSocket = useCallback(() => {
+    if (wsRef.current?.readyState === WebSocket.OPEN) {
+      wsRef.current.close();
+    }
   }, []);
 
   useEffect(() => {
     AppState.addEventListener('change', (state: AppStateStatus) => {
       if (state !== 'active') {
-        if (wsRef.current.readyState === WebSocket.OPEN) {
-          wsRef.current.close();
+        if (wsRef.current?.readyState === WebSocket.OPEN) {
+          stopSocket();
         }
         return;
       }
 
-      if (wsRef.current.readyState === WebSocket.CLOSED) {
-        wsRef.current = new WebSocket(socketUrl);
-        initSocket();
-      }
+      initSocket();
     });
   }, []);
 
-  return {initSocket};
+  return {
+    initSocket,
+    stopSocket,
+  };
 };
 
 export default useWebSocket;
