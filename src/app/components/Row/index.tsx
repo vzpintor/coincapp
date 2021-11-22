@@ -10,7 +10,7 @@ const Row = ({asset}: RowProps) => {
   const {symbol, name, priceUsd, changePercent24Hr, logo, background} = asset;
 
   const goToDetail = () => {
-    navigate('Detail');
+    navigate('Detail', {asset});
   };
 
   return (

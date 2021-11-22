@@ -2,10 +2,15 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from '@screens/Home';
 import DetailScreen from '@screens/Detail';
+import {IAsset} from '@shared/assetInterface';
+
+interface DetailScreenParams {
+  asset: IAsset;
+}
 
 export type PrimaryParamList = {
   Home: undefined;
-  Detail: undefined;
+  Detail: DetailScreenParams;
 };
 
 const Stack = createStackNavigator<PrimaryParamList>();

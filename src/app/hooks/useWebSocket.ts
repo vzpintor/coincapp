@@ -13,7 +13,6 @@ const useWebSocket = (socketUrl: string) => {
   const wsRef = useRef<WebSocket>();
 
   const initSocket = useCallback(() => {
-    console.log('===> socketUrl', socketUrl);
     wsRef.current = new WebSocket(socketUrl);
 
     wsRef.current.onopen = () => {
