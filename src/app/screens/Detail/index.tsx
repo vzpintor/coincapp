@@ -50,7 +50,7 @@ const DetailScreen = ({
           detailScreenStyles.changeContainer,
           {backgroundColor: background || 'white'},
         ]}>
-        <Text>${format(priceUsd)}</Text>
+        <Text style={{color: 'black'}}>${format(priceUsd)}</Text>
         <View style={detailScreenStyles.percentage}>
           <PercentageChange changePercent={changePercent24Hr} />
         </View>

@@ -12,6 +12,7 @@ export const detailScreenStyles = StyleSheet.create({
     alignItems: 'center',
   },
   brandName: {
+    color: 'black',
     fontSize: 28,
     fontWeight: 'bold',
   },
